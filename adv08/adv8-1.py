@@ -8,18 +8,18 @@ num_visible = 0
 for y in range(height):
 
     for x in range(width):
-        col = [data[r][x] for r in range(height)]
+        col = [grid[r][x] for r in range(height)]
 
-        if(not any([h >= data[y][x] for h in col[y+1:]])):
+        if(not any([h >= grid[y][x] for h in col[y+1:]])):
             num_visible += 1
 
-        elif(not any([h >= data[y][x] for h in col[:y]])):
+        elif(not any([h >= grid[y][x] for h in col[:y]])):
             num_visible += 1
 
-        elif(not any([h >= data[y][x] for h in data[y][x+1:]])):
+        elif(not any([h >= grid[y][x] for h in grid[y][x+1:]])):
             num_visible += 1
 
-        elif(not any([h >= data[y][x] for h in data[y][:x]])):
+        elif(not any([h >= grid[y][x] for h in grid[y][:x]])):
             num_visible += 1
 
 print(num_visible)     
