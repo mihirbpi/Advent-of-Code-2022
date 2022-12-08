@@ -10,16 +10,10 @@ for y in range(height):
     for x in range(width):
         col = [grid[r][x] for r in range(height)]
 
-        if(not any([h >= grid[y][x] for h in col[y+1:]])):
-            num_visible += 1
-
-        elif(not any([h >= grid[y][x] for h in col[:y]])):
-            num_visible += 1
-
-        elif(not any([h >= grid[y][x] for h in grid[y][x+1:]])):
-            num_visible += 1
-
-        elif(not any([h >= grid[y][x] for h in grid[y][:x]])):
+        if(not any([h >= grid[y][x] for h in col[y+1:]]) or
+           not any([h >= grid[y][x] for h in col[:y]]) or  
+           not any([h >= grid[y][x] for h in grid[y][x+1:]]) or 
+           not any([h >= grid[y][x] for h in grid[y][:x]])):
             num_visible += 1
 
 print(num_visible)     
