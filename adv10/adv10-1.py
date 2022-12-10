@@ -2,7 +2,6 @@ from aocd import get_data
 data = get_data(year=2022, day=10).split("\n")
 
 X = 1
-signal_strength_total = 0
 X_vals = []
 
 for instr in range(len(data)):
