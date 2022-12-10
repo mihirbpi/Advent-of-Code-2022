@@ -1,6 +1,5 @@
 from aocd import get_data
 from collections import defaultdict
-import math
 
 data = get_data(year=2022, day=9).split("\n")
 grid_dict = defaultdict(lambda: False)
@@ -13,7 +12,7 @@ def are_touching():
 
         for vert_dir in [-1,0,1]:
 
-            if((head_pos[0]+horiz_dir == tail_pos[0]) and (head_pos[1]+vert_dir == tail_pos[1])):
+            if((head_pos[0] + horiz_dir == tail_pos[0]) and (head_pos[1] + vert_dir == tail_pos[1])):
                 return True
 
 def update_tail_pos():
