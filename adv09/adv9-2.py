@@ -5,9 +5,10 @@ import math
 data = get_data(year=2022, day=9).split("\n")
 grid_dict = defaultdict(lambda: False)
 grid_dict[(0,0)] = True
+num_knots = 10
 poses = []
 
-for i in range(10):
+for knot in range(num_knots):
     poses.append([0,0])
 
 def are_touching(head_pos, tail_pos):
@@ -34,27 +35,29 @@ def update_tail_pos(head_pos, tail_pos):
         tail_pos[1] -= 1
 
     elif(tail_pos[0] != head_pos[0] and tail_pos[1] != head_pos[1] and not are_touching(head_pos, tail_pos)):
-
-        if(head_pos[0] > tail_pos[0] and head_pos[1] > tail_pos[1]):
+        
+        if(head_pos[0] > tail_pos[0]):
             tail_pos[0] += 1
-            tail_pos[1] += 1
 
-        elif(head_pos[0] > tail_pos[0] and head_pos[1] < tail_pos[1]):
-            tail_pos[0] += 1
-            tail_pos[1] -= 1
+            if(head_pos[1] > tail_pos[1]):
+                tail_pos[1] += 1
 
-        elif(head_pos[0] < tail_pos[0] and head_pos[1] > tail_pos[1]):
+            else:
+                tail_pos[1] -= 1
+
+        elif(head_pos[0] < tail_pos[0]):
             tail_pos[0] -= 1
-            tail_pos[1] += 1
 
-        elif(head_pos[0] < tail_pos[0] and head_pos[1] < tail_pos[1]):
-            tail_pos[0] -= 1
-            tail_pos[1] -= 1
-
+            if(head_pos[1] > tail_pos[1]):
+                tail_pos[1] += 1
+                
+            else:
+                tail_pos[1] -= 1
 
 def update_rope():
-    for i in range(9):
-        update_tail_pos(poses[i], poses[i+1])
+
+    for knot in range(num_knots-1):
+        update_tail_pos(poses[knot], poses[knot+1])
 
 for up_move in data:
     dir, steps = up_move.split(" ")[0], int(up_move.split(" ")[1])
@@ -63,22 +66,17 @@ for up_move in data:
 
         if(dir == "R"):
             poses[0][0] += 1
-            update_rope()
-            grid_dict[tuple(poses[9])] = True
 
         elif(dir == "L"):
             poses[0][0] -= 1
-            update_rope()
-            grid_dict[tuple(poses[9])] = True
 
         elif(dir == "U"):
             poses[0][1] += 1
-            update_rope()
-            grid_dict[tuple(poses[9])] = True
 
         elif(dir == "D"):
             poses[0][1] -= 1
-            update_rope()
-            grid_dict[tuple(poses[9])] = True
+
+        update_rope()
+        grid_dict[tuple(poses[num_knots-1])] = True
 
 print(len(grid_dict))

@@ -5,8 +5,7 @@ import math
 data = get_data(year=2022, day=9).split("\n")
 grid_dict = defaultdict(lambda: False)
 grid_dict[(0,0)] = True
-head_pos = [0,0]
-tail_pos = [0,0]
+head_pos, tail_pos = [0,0], [0,0]
 
 def are_touching():
 
@@ -33,21 +32,23 @@ def update_tail_pos():
 
     elif(tail_pos[0] != head_pos[0] and tail_pos[1] != head_pos[1] and not are_touching()):
 
-        if(head_pos[0] > tail_pos[0] and head_pos[1] > tail_pos[1]):
+        if(head_pos[0] > tail_pos[0]):
             tail_pos[0] += 1
-            tail_pos[1] += 1
 
-        elif(head_pos[0] > tail_pos[0] and head_pos[1] < tail_pos[1]):
-            tail_pos[0] += 1
-            tail_pos[1] -= 1
+            if(head_pos[1] > tail_pos[1]):
+                tail_pos[1] += 1
 
-        elif(head_pos[0] < tail_pos[0] and head_pos[1] > tail_pos[1]):
+            else:
+                tail_pos[1] -= 1
+
+        elif(head_pos[0] < tail_pos[0]):
             tail_pos[0] -= 1
-            tail_pos[1] += 1
 
-        elif(head_pos[0] < tail_pos[0] and head_pos[1] < tail_pos[1]):
-            tail_pos[0] -= 1
-            tail_pos[1] -= 1
+            if(head_pos[1] > tail_pos[1]):
+                tail_pos[1] += 1
+                
+            else:
+                tail_pos[1] -= 1
 
 for up_move in data:
     dir, steps = up_move.split(" ")[0], int(up_move.split(" ")[1])
@@ -56,22 +57,17 @@ for up_move in data:
 
         if(dir == "R"):
             head_pos[0] += 1
-            update_tail_pos()
-            grid_dict[tuple(tail_pos)] = True
 
         elif(dir == "L"):
             head_pos[0] -= 1
-            update_tail_pos()
-            grid_dict[tuple(tail_pos)] = True
 
         elif(dir == "U"):
             head_pos[1] += 1
-            update_tail_pos()
-            grid_dict[tuple(tail_pos)] = True
 
         elif(dir == "D"):
             head_pos[1] -= 1
-            update_tail_pos()
-            grid_dict[tuple(tail_pos)] = True
+    
+        update_tail_pos()
+        grid_dict[tuple(tail_pos)] = True
         
 print(len(grid_dict))
