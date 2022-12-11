@@ -1,4 +1,5 @@
 from aocd import get_data
+import math
 data = get_data(year=2022, day=11).split("\n\n")
 
 monkey_list = []
