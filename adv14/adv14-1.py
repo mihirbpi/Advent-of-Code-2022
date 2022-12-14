@@ -43,44 +43,31 @@ num_sand = 0
 while(not flowed_into_abyss):
     curr_pt = (500,0)
     num_sand += 1
+    
     while (True):
         curr_x, curr_y = curr_pt
+
+        if(curr_y >= max_y):
+                flowed_into_abyss = True
+                num_sand -= 1
+                break
 
         if(grid[(curr_x, curr_y+1)] == "."):
             grid[(curr_x, curr_y)] = "."
             grid[(curr_x, curr_y+1)] = "o"
             curr_pt = (curr_x, curr_y+1)
 
-            if(curr_pt[1] >= max_y):
-                flowed_into_abyss = True
-                num_sand -= 1
-                break
-
         elif(grid[(curr_x-1, curr_y+1)] == "."):
             grid[(curr_x, curr_y)] = "."
             grid[(curr_x-1, curr_y+1)] = "o"
             curr_pt = (curr_x-1, curr_y+1)
-
-            if(curr_pt[1] >= max_y):
-                flowed_into_abyss = True
-                num_sand -= 1
-                break
-
+   
         elif(grid[(curr_x+1, curr_y+1)] == "."):
             grid[(curr_x, curr_y)] = "."
             grid[(curr_x+1, curr_y+1)] = "o"
             curr_pt = (curr_x+1, curr_y+1)
 
-            if(curr_pt[1] >= max_y):
-                flowed_into_abyss = True
-                num_sand -= 1
-                break
-
         else:
-            if(curr_pt[1] >= max_y):
-                flowed_into_abyss = True
-                num_sand -= 1
-                break
             break
 
 print(num_sand)
