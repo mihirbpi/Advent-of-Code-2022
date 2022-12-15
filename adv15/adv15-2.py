@@ -8,8 +8,6 @@ def manhattan(pt1, pt2):
     return abs(x1-x2) + abs(y1-y2)
 
 sensors_dict = {}
-beacons = set()
-cannot_be_beacon = set()
 max_x_y = 4000000
 
 for line in data:
@@ -20,7 +18,6 @@ for line in data:
     close_beacon_y = int(line_split[9].split("=")[1])
     sensor = (sensor_x, sensor_y)
     beacon = (close_beacon_x, close_beacon_y)
-    cannot_be_beacon.add(beacon)
     close_dist = manhattan(sensor, beacon)
     sensors_dict[sensor] = close_dist
 
@@ -37,4 +34,5 @@ for sensor in sensors_dict:
 
 s.add(solution == 4000000*x+y)
 s.check()
-print(s.model()[solution])
+answer = s.model()[solution].as_long()
+print(answer)
