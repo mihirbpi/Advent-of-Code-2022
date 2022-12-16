@@ -1,5 +1,4 @@
 from aocd import get_data
-from functools import *
 from more_itertools import set_partitions
 from collections import deque
 data = get_data(year=2022, day=16).split("\n")
